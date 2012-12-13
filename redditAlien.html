@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Reddit alien invader</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <style type="text/css">body { background-color: #000;margin: 0px;overflow: hidden; }</style>
+  <link href='http://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" language="JavaScript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-8977675-12']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <style>
+      </style>
+  </head>
+  <body style='background : #000'  onkeydown='keyIsDown(event)' onkeyup='keyIsUp(event)'>
+    <div id="canvasContainer" height="736" width="1440" ><canvas height="736" width="1440" id="canvas"></canvas></div>
+  <script>
+    var reddit=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    
+    var context = document.getElementById('canvas').getContext('2d');
+    context.strokeStyle = "rgb(255,255,255)";
+    context.lineWidth = 5;
+    var sens = true;
+    var nbIter = 0;
+    var f=1;
+    var b=0;var red = 0 ;var green = 0;
+    var pRouge=255; var pVert=0;var pBleu=255;
+    var bRouge=0;var bVert=0;var bBleu=0;
+    var alpha=0.0;
+    var sensCouleur = true;
+    var modeOn = false;
+    var jumpHeight=28;
+    var jumpMeter=0;
+    var onFly=true;
+    var rSpiral = 0;
+    var rJump = 0;
+    var ball = { x : 150 , y:100 , bouncing :true}
+    var ennemies = new Array();
+    var forrest  = new Array();
+    var explosions = new Array();
+    var life=5;
+    var firePower=100;
+    var decalSpiral = 0;
+    var distArc=0;
+    var espaceEnnemy=250;
+    var scoreShoot=100;
+    var score=0;
+    var highScoreShoot=0;
+    var gameOverFrame=0;
+    var userHighScore = 0;
+    var keyBoard = {
+      left : 0,
+      right :0,
+      top :0,
+      bottom :0,
+      fire : 0,
+      spiral : 0,
+      explode : 0
+    }
+    
+    function keyIsDown(event)
+    {
+      //console.log(event.keyCode);
+      if(event.keyCode == 37)
+      {
+	keyBoard.left = 10;
+      }
+
+      if(event.keyCode == 39)
+      {
+	keyBoard.right = 10;
+      }
+      if(event.keyCode == 88)
+      {
+	keyBoard.fire = 1;
+      }
+      if(event.keyCode == 69)
+      {
+	keyBoard.explode=1;
+      }
+      if(event.keyCode == 68)
+      {
+      }
+      if(event.keyCode == 38)
+      {
+	keyBoard.top = 10;0
+      }
+      if(event.keyCode == 40)
+      {
+	keyBoard.bottom = 10;
+      }
+      if(event.keyCode == 67)
+      {
+	keyBoard.missile= 10;
+      }
+    }
+
+    function keyIsUp(event)
+    {
+      if(event.keyCode == 37)
+      {
+	keyBoard.left = 0;
+      }
+      if(event.keyCode == 39)
+      {
+	keyBoard.right = 0;
+      }
+      if(event.keyCode == 38)
+      {
+	keyBoard.top = 0;
+      }
+      if(event.keyCode == 40)
+      {
+	keyBoard.bottom = 0;
+      }
+      if(event.keyCode == 88)
+      {
+	keyBoard.fire = 0;
+	distArc=0;
+	scoreShoot=100;
+      }
+      if(event.keyCode == 67)
+      {
+	keyBoard.missile=0;
+      }
+      if(event.keyCode == 83)
+      {
+	  //keyBoard.spiral=0;
+      }
+    }
+    function makeParticles(yy,msg,width,height) { 
+      var pixelTab = new Array();
+      var particle; 
+      var topDecal = 0//(window.innerHeight / 2) - yy;
+      var forrest = new Array()
+      var ennemies = new Array()
+      var leftDecal = 0//(window.innerWidth / 2) - ((msg.length * 75) );
+      for (i = 0 ; i < msg.length ; i++){
+	tmpTab = new Array(); 
+	for (j = 0 ; j < msg[i].length ; j++){
+	  if (msg[i][j] > 0){
+	      pixelTab.push(new Array(((( j % height))*1)+(i*600) +500,
+				(j / width ) *2) );
+	  }
+	}
+      }
+      return pixelTab;
+    }
+    
+    function moveLeft(circleTab){	
+      if ( Math.floor(circleTab[0][0]) > 100){
+	for(var i=0; i<circleTab.length; i++) {
+	      circleTab[i][0] -=  5;
+	}
+      }
+    }
+
+    function moveRight(circleTab){	
+      if ( circleTab[0][0] < window.innerWidth){
+	for(var i=0; i<circleTab.length; i++) {
+	      circleTab[i][0] +=  5;
+	}
+      }
+    } 
+    
+    function input()
+    {
+      if (keyBoard.fire)
+      {
+	fire();
+      }
+      if (keyBoard.spiral)
+      {
+	spirala();
+      }
+      if (keyBoard.missile)
+      {
+	missile();
+      }
+    }
+    function missile(){
+    }
+    function fire(){
+     
+    }
+    function spirala(){
+      if ((jumpHeight/2)>jumpMeter  )
+	rSpiral++ ;
+      else{
+	spiralAbs=Math.abs(rSpiral) 
+	rSpiral= 0 - (jumpHeight - jumpMeter) + 1 ;
+      }
+      jumpMeter++;
+      if (jumpMeter > jumpHeight){
+	keyBoard.spiral = 0
+	jumpMeter = 0;
+	rSpiral =0;
+      }
+      if  (jumpMeter == jumpHeight/2)
+	rSpiral=0;
+    }
+    function drawArc(start,end){	
+      context.lineWidth = 2;
+      context.beginPath(); 
+      context.arc(forrest[602][0],forrest[130][1]+250,65+distArc,((distArc/300)+start) * Math.PI,((distArc/600)+end) * Math.PI, false);
+      context.stroke();
+      context.closePath();
+      context.beginPath(); 
+      context.arc(forrest[602][0],forrest[130][1]+250,68+distArc,((distArc/300)+start) * Math.PI,((distArc/600)+end) * Math.PI, false);
+      context.stroke();
+      context.closePath();
+    }
+    Array.prototype.remove = function(from, to) {
+      var rest = this.slice((to || from) + 1 || this.length);
+      this.length = from < 0 ? this.length + from : from;
+      return this.push.apply(this, rest);
+    };
+    function gameOver(){
+      for(var i= 0 ; i < explosions.length ; i++){
+	context.beginPath(); 
+	explosions[i].x += explosions[i].dx * explosions[i].speed  ;
+	explosions[i].y += explosions[i].dy * explosions[i].speed ;
+	explosions[i].lifeTime = explosions[i].lifeTime -1;
+	context.fillRect( explosions[i].x  , explosions[i].y, 1 , 1 );
+	context.fill();
+	context.closePath();
+	
+	
+	if (explosions[i].lifeTime == 0){
+	  explosions.remove(i);
+	  console.log("muf: " + explosions.length + " " + forrest.length);
+	}
+      }
+
+      context.lineWidth = 5;
+      context.fillStyle = 'rgba('+bRouge+','+bVert+','+bBleu+','+0.01+')';
+      context.fillRect(0,0,10000, 10000);
+      context.fillStyle = 'rgb(255,'+(255- (rSpiral*100) - (5-life) * 50)+','/*+(pRouge + (rSpiral*25))+','*/+(255- (rSpiral*100)- ((5-life) * 50))+')';
+      for(var i=0  ; i < forrest.length -1; i++) {
+	context.beginPath(); 
+	context.fillRect( Math.floor(forrest[i][0]), Math.floor(forrest[i][1] + 200), 1 , 1 );
+	context.fill();
+	context.closePath();
+      }
+      context.fillText("GAME OVER!!!",canvas.width/2  -50, (canvas.height/2)-100 );
+      context.fillText("Your score:"+score,canvas.width/2  -50, (canvas.height/2));
+      context.fillText("High score score:"+userHighScore,canvas.width/2  -75, (canvas.height/2)+100);
+      context.fillText("PRESS F5 TO RESTART",canvas.width/2  -50, (canvas.height/2)+200);
+    }
+    function update(){
+      context.lineWidth = 1;      
+      for (i = 0 ; i < ennemies.length ; i++){
+	ennemies[i].move();
+	if (keyBoard.fire ){
+	  var xEnnemy = Math.floor(ennemies[i].x);
+	  var yEnnemy = Math.floor(ennemies[i].y);
+	  var meX = Math.floor(forrest[600][0]) ;
+	  var meY = Math.floor(forrest[600][1]) ;
+	  if ( Math.floor(firePower) > 22 && 
+		xEnnemy < meX  && ( yEnnemy < meY  + (distArc)  &&  yEnnemy > meY - (distArc)  )  && 
+		(meX -distArc) < xEnnemy){
+	    context.fillText(scoreShoot+" !!!", ennemies[i].x, ennemies[i].y+200);
+	      if (scoreShoot > highScoreShoot)
+		highScoreShoot = scoreShoot	
+	    score+=scoreShoot;
+	    scoreShoot=scoreShoot*2;
+	    for (j = 0 ; j < 75 ; j++){
+	      var explosion = {
+		x:xEnnemy,
+		y:yEnnemy+200,
+		dx:5 - (Math.random() * 10),
+		dy:5 - (Math.random() * 10), 
+		speed:1+Math.random()*5,
+		lifeTime:250,
+		red:255
+	      }
+	      explosions.push(explosion);
+	    }
+	    ennemies.remove(i);
+	    break;
+	  }
+	  if ( Math.floor(firePower) > 22 && xEnnemy> meX  && ( yEnnemy < meY  + (distArc) 
+									  &&  yEnnemy > meY - (distArc)  )  && 
+	    (Math.floor(forrest[600][0] ) + (distArc)) > xEnnemy){
+	      context.fillText("*"+scoreShoot+"*", xEnnemy , yEnnemy+200);
+	      if (scoreShoot > highScoreShoot)
+		highScoreShoot = scoreShoot	;
+	      score+=scoreShoot;
+	      scoreShoot=scoreShoot*2;
+	      for (j = 0 ; j < 75 ; j++){
+		var explosion = {
+		  x:xEnnemy,
+		  y:yEnnemy+200,
+		  dx:5 - (Math.random() * 10),
+		  dy:5 - (Math.random() * 10), 
+		  speed:1+Math.random()*5,
+		  lifeTime:250,
+		  red:255
+		}
+		explosions.push(explosion)
+	      }
+	      ennemies.remove(i)
+	      break;
+	    }
+	  
+	}
+      }
+      for (i = 0 ; i < ennemies.length ; i++){
+	var xEnnemy = Math.floor(ennemies[i].x);
+	var yEnnemy = Math.floor(ennemies[i].y);
+	var speedEnnemy = Math.floor(ennemies[i].speed * 25);
+	context.beginPath(); 
+	context.strokeStyle = 'rgb(255,'+(255-speedEnnemy )+','+ (255-speedEnnemy)+')';
+	context.arc(xEnnemy,yEnnemy+200,10,0,Math.PI*2,true); // Outer circle
+	context.stroke();
+	context.closePath();
+	for (j=0;j<forrest.length;j++){
+	  if ((xEnnemy+1 == Math.floor(forrest[j][0]) || xEnnemy == Math.floor(forrest[j][0]) )
+			  && (Math.floor(ennemies[i].y) )== Math.floor(forrest[j][1])){
+	    ennemies.remove(i);	
+	    life--;
+	    if (life==0)
+	      keyBoard.explode=1;
+	    keyBoard.spiral=1;
+	    break;
+	  }
+	}
+      }
+      elastic(forrest);
+      if (keyBoard.explode == 1){
+	explode(forrest);
+      }
+      if (keyBoard.spiral == 1 && !keyBoard.explode){
+	spiral(forrest);
+      }
+      context.lineWidth = 5;
+      context.fillStyle = 'rgba('+bRouge+','+bVert+','+bBleu+','+0.1+')';
+      context.fillRect(0,0,10000, 10000);
+      context.fillStyle = 'rgb(255,'+(255- (rSpiral*100) - (5-life) * 50)+','/*+(pRouge + (rSpiral*25))+','*/+(255- (rSpiral*100)- ((5-life) * 50))+')';
+      for(var i=0  ; i < forrest.length -1; i++) {
+	context.beginPath(); 
+	context.fillRect( Math.floor(forrest[i][0]), Math.floor(forrest[i][1] + 200), 1 , 1 );
+	context.fill();
+	context.closePath();
+      }
+      
+      if (keyBoard.fire  == 0 && firePower < 100)
+	firePower+=0.2;
+
+      if (keyBoard.fire == 1 && Math.floor(firePower) > 20){
+	firePower-=0.9;
+	context.strokeStyle = "rgb(255,"+255+","+(255-distArc)+")";
+	drawArc(1.3+decalSpiral,1.7+decalSpiral);
+	drawArc(1.8+decalSpiral,2.2+decalSpiral);
+	drawArc(2.3+decalSpiral,2.7+decalSpiral);
+	drawArc(2.8+decalSpiral,3.2+decalSpiral);
+	distArc+=15;
+	if (distArc>230){
+	  distArc=20;
+	  decalSpiral +=0.1;
+	  if (decalSpiral > 40)
+	    decalSpiral  = 0
+	}
+      }
+      context.fillStyle = "rgb(255,255,255)";
+      for(var i= 0 ; i < explosions.length ; i++){
+	context.beginPath(); 
+	explosions[i].x += explosions[i].dx * explosions[i].speed  ;
+	explosions[i].y += explosions[i].dy * explosions[i].speed ;
+	explosions[i].lifeTime = explosions[i].lifeTime -1;
+	context.fillRect( explosions[i].x  , explosions[i].y, 1 , 1 );
+	context.fill();
+	context.closePath();
+	if (explosions[i].lifeTime == 0){
+	  explosions.remove(i);
+	}
+      }
+      if (f%espaceEnnemy==0){	
+	createEnnemy();
+	espaceEnnemy-=10;
+	if (espaceEnnemy == 0)
+	  espaceEnnemy = 250;
+      }
+      context.beginPath();
+      context.font = "normal 42px VT323";
+      context.lineWidth = 5;
+      context.strokeStyle = "rgb(255,255,255)";	
+      if (f%60 == 0)
+	console.log("Score: " + score + " Life:"+life + " Ammo:" + Math.floor(firePower) + " BestCombo:" + highScoreShoot, 10,40 + " Your highscore:" + userHighScore);
+      context.fillText("Score: " + score + " Life:"+life + " Ammo:" + Math.floor(firePower) + " BestCombo:" + highScoreShoot + " Your highscore:" + userHighScore, 10,40);
+      context.fillText("(X to shoot, arrows to move)", 10,canvas.height - 60);
+      context.fill();
+      context.closePath();
+      
+    }
+    function elastic(circleTab,coeff){
+      rndX = (Math.random()*24) -12;
+      rndY = (Math.random()*24) -12;
+      if (f%10==0){
+	
+	    }
+      for(var i=0; i < circleTab.length; i++) {
+	  forrest[i][0] =  forrest[i][0] - keyBoard.left + keyBoard.right;
+	  forrest[i][1] -= keyBoard.top - keyBoard.bottom ; 
+      }
+    }
+    function explode(circleTab){
+	for (j = 0 ;  j<circleTab.length; j+=2) {
+	  var explosion = {
+		x:circleTab[j][0],
+		y:circleTab[j][1]+200,
+		dx:5 - (Math.random() * 10),
+		dy:5 - (Math.random() * 10), 
+		speed:1+Math.random()*4,
+		lifeTime:100,
+		red:255
+	  }
+	  explosions.push(explosion);
+	}
+	keyBoard.explode = 0;
+	//life= 5 ;
+    }
+    function spiral(circleTab){
+      for(var i=0; i<circleTab.length; i++) {
+	if (i%4 == 0){
+	  circleTab[i][0] -= rSpiral;
+	}
+	else if (i%4 == 1){
+	  circleTab[i][1] -= rSpiral;
+	}
+	else if (i%4 == 2){
+	  circleTab[i][0] += rSpiral;
+	}
+	else if (i%4 == 3){
+	  circleTab[i][1] += rSpiral;
+	}
+      }
+    }
+    
+    function Ennemy(){
+      var cote = Math.floor(Math.random() * 4);
+      if (cote==0){
+	this.x = (window.innerWidth / 2) +10
+	this.y = window.innerWidth + Math.floor(Math.random() * window.innerHeight);
+      }
+      else if (cote==1){
+	this.x =  (window.innerWidth / 2) -10
+	this.y = -window.innerWidth + Math.floor(Math.random() * window.innerHeight);
+      }
+      else if (cote==2){
+	this.x = window.innerWidth + Math.floor(Math.random() * window.innerHeight);
+	this.y = (window.innerWidth / 2) +10
+      }
+      else if (cote==3){
+	this.x = -window.innerWidth + Math.floor(Math.random() * window.innerHeight);
+	this.y = (window.innerWidth / 2) +10
+      }
+      this.speed= 0.01;
+      this.inertieX=0;
+      this.inertieY=0;
+      this.move = function(){	
+	if (this.inertieY > 0)
+	  this.inertieY-=this.inertieY*0.8
+	else if (this.inertieY < 0)
+	  this.inertieY+=Math.abs(this.inertieY*0.8)
+	if (this.inertieX > 0)
+	  this.inertieX-=this.inertieX*0.8
+	else if (this.inertieX < 0)
+	  this.inertieX+=Math.abs(this.inertieX*0.8)
+
+	if (keyBoard.bottom){
+	  this.inertieY+=2;
+	}
+	if (keyBoard.right){
+	  this.inertieX+=2;
+	}
+	if (keyBoard.top){
+	  this.inertieY-=2;
+	}
+	if (keyBoard.left){
+	  this.inertieX-=2;
+	}
+	if (this.x > forrest[600][0])
+	  this.x+= (forrest[600][0] - this.x) * 0.07;
+	else
+	  this.x-=(this.x - forrest[600][0]) * 0.07;
+	    
+	if (this.y > forrest[600][1])
+	  this.y+=(forrest[600][1] - this.y)* 0.07;
+	else
+	  this.y-=(this.y - forrest[600][1])* 0.07;
+	this.speed+=0.05;	
+	
+	this.x += this.inertieX;
+	this.y += this.inertieY;
+      }
+      if (this.inertieX != 0){
+	if (this.inertieX<0)
+	  this.inertieX-=0.01	
+	else
+	  this.inertieX+=0.01
+      }
+      if (this.inertieY != 0){
+	if (this.inertieY<0)
+	  this.inertieY+=0.01
+	else
+	  this.inertieY-=0.01
+  
+      }
+      
+    }
+    function createEnnemy(){
+      aezaze = new Ennemy();
+      ennemies.push(aezaze);
+    }
+    function makeForest(){
+      return makeParticles(15,[reddit],100,100);
+    }
+    function init() {
+      forrest = makeForest();
+      context.canvas.width  = window.innerWidth;
+      context.canvas.height  = window.innerHeight;
+      context.font = "normal 42px VT323";
+      if (localStorage['score'])
+	userHighScore = localStorage['score'];
+      else
+	userHighScore  = 0;
+    }
+    window.requestAnimFrame = 	( 
+      function(){
+	return  window.requestAnimationFrame || 
+	window.webkitRequestAnimationFrame || 
+	window.mozRequestAnimationFrame    || 
+	window.oRequestAnimationFrame      || 
+	window.msRequestAnimationFrame     || 
+	function(callback, element)
+	{
+	  window.setTimeout(callback, 1000 / 60);
+	};
+      }
+    )();
+    function run(){
+      if (life <=0 )
+      {
+	    gameOver();
+	    if (gameOverFrame == 0){
+	      explode(forrest);
+	      forrest= new Array();
+	      if ( score > userHighScore){
+		localStorage['score'] = score;
+		userHighScore = score;
+	      }
+	    }
+	    gameOverFrame +=1;
+      }
+      else{
+	input();
+	update();
+      }
+      requestAnimFrame(run);
+      f++;
+    }	
+    init();
+    run();
+  </script>
+</body>
+</html>
